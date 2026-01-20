@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --page-bg: #fffafa;
+    --sidebar-bg: #fff0f3;
+    --accent-pink: #ff8fa3;
+    --deep-berry: #592d3e;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(255, 143, 163, 0.1);
+}
+
+body {
+    margin: 0;
+    background-color: var(--page-bg);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    height: 100vh;
+    position: fixed;
+    border-right: 1px solid #ffdae0;
+}
+
+.sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    padding: 35px 25px;
+    color: var(--accent-pink);
+    border-bottom: 2px dashed #ffdae0;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    padding: 18px 25px;
+    color: #8a5a6a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar nav a.active {
+    background: #ffe4e9;
+    color: var(--accent-pink);
+    border-left: 5px solid var(--accent-pink);
+}
+
+.sidebar nav a i { margin-right: 15px; }
+
+/* Layout */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-header h1 { font-family: 'Playfair Display', serif; }
+
+/* Table Section */
+.card-section {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th {
+    text-align: left;
+    padding: 15px;
+    color: #b08d99;
+    font-size: 0.8rem;
+    border-bottom: 2px solid #fff0f3;
+}
+
+.inventory-table td {
+    padding: 15px;
+    border-bottom: 1px solid #fff0f3;
+}
+
+/* Image Handling */
+.img-container img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* The actual image */
+.main-preview, .img-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* CRITICAL: Shows full image without stretching */
+    display: block;
+    border-radius: 10px;
+}
+/* Book Details Column */
+.book-info { display: flex; flex-direction: column; }
+.book-title { font-weight: 600; color: var(--deep-berry); }
+.book-author { font-size: 0.8rem; color: #b08d99; }
+
+/* Price Stack */
+.price-stack { display: flex; flex-direction: column; font-size: 0.85rem; }
+.price-stack small { color: var(--accent-pink); font-weight: bold; }
+
+/* Badges and Status */
+.badge { padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+.bg-green { background: #e8f5e9; color: #4caf50; }
+.bg-red { background: #ffebee; color: #f44336; }
+
+.status-pill { padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+.status-pill.sell { background: #e3f2fd; color: #2196f3; }
+.status-pill.rent { background: #f3e5f5; color: #9c27b0; }
+.status-pill.both { background: #f1f8e9; color: #689f38; }
+
+/* Buttons */
+.btn-add-main {
+    background: linear-gradient(135deg, #ff8fa3 0%, #ff4d6d 100%);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.action-buttons { display: flex; gap: 8px; }
+.btn-edit, .btn-delete {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.btn-edit { background: #f0f7ff; color: #3b82f6; }
+.btn-delete { background: #fff5f5; color: #ef4444; }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(89, 45, 62, 0.4);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000;
+}
+.modal-overlay.active { display: flex; }
+.modal-card { background: white; padding: 40px; border-radius: 25px; width: 400px; text-align: center; }
+.warning-circle { font-size: 3rem; color: var(--accent-pink); margin-bottom: 20px; }
+#bookTitleDisplay { font-weight: bold; color: var(--accent-pink); }
+.modal-footer { display: flex; gap: 15px; margin-top: 30px; }
+.btn-cancel, .btn-danger-confirm { flex: 1; padding: 12px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; }
+.btn-danger-confirm { background: #ff4d6d; color: white; text-decoration: none; display: block; }
+

@@ -36,7 +36,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
                 if (res.errors.usernameOrEmail) showError(userEl, errUser, res.errors.usernameOrEmail);
                 if (res.errors.password) showError(passEl, errPass, res.errors.password);
             } else if (res.status === "success") {
-                window.location.href = (res.role === "admin") ? "../admin/dashboard.php" : "../user/dashboard.php";
+                window.location.href = (res.role === "admin") ? "../admin/admin_dashboard.php" : "../user/user_dashboard.php";
             } else {
                 alert(res.message);
             }
