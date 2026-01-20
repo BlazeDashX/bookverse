@@ -1,6 +1,7 @@
-/* Specialized Styles for Add/Edit Book Interfaces */
+/* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
+/* CSS Variables */
 :root {
     --page-bg: #fffafa;
     --sidebar-bg: #fff0f3;
@@ -11,6 +12,7 @@
     --shadow: 0 10px 30px rgba(255, 143, 163, 0.15);
 }
 
+/* Body Styles */
 body {
     margin: 0;
     display: flex;
@@ -19,7 +21,7 @@ body {
     color: var(--deep-berry);
 }
 
-/* Sidebar */
+/* Sidebar Container */
 .sidebar {
     width: 280px;
     background-color: var(--sidebar-bg);
@@ -28,6 +30,7 @@ body {
     border-right: 1px solid #ffdae0;
 }
 
+/* Sidebar Logo */
 .sidebar-logo {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
@@ -36,6 +39,7 @@ body {
     border-bottom: 2px dashed #ffdae0;
 }
 
+/* Navigation Links */
 .sidebar nav a {
     display: flex;
     align-items: center;
@@ -45,7 +49,8 @@ body {
     transition: 0.3s;
 }
 
-.sidebar nav a:hover, .sidebar nav a.active {
+.sidebar nav a:hover,
+.sidebar nav a.active {
     background: #ffe4e9;
     color: var(--accent-pink);
     border-left: 5px solid var(--accent-pink);
@@ -64,6 +69,7 @@ body {
     align-items: flex-start;
 }
 
+/* Preview Card */
 .cover-preview-card {
     flex: 0 0 320px;
     background: var(--white);
@@ -74,11 +80,11 @@ body {
 }
 
 .image-box {
-    background: #fdf2f5; /* Light pink background to fill empty space */
+    background: #fdf2f5;
     border-radius: 20px;
     padding: 15px;
     box-shadow: inset 0 0 10px rgba(255, 143, 163, 0.1);
-    height: 400px; /* Fixed height for the container */
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,7 +94,7 @@ body {
 .main-preview {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* ACHIEVES THE SECOND PICTURE LOOK: No stretching, shows full image */
+    object-fit: contain;
     border-radius: 10px;
     display: block;
     transition: transform 0.3s ease;
@@ -119,17 +125,22 @@ body {
     gap: 25px;
 }
 
-.input-block { margin-bottom: 20px; }
-.input-block label { 
-    display: block; 
-    font-weight: 600; 
-    color: #b08d99; 
-    margin-bottom: 8px; 
+.input-block {
+    margin-bottom: 20px;
+}
+
+.input-block label {
+    display: block;
+    font-weight: 600;
+    color: #b08d99;
+    margin-bottom: 8px;
     font-size: 0.9rem;
     text-transform: uppercase;
 }
 
-.input-block input, .input-block select, .input-block textarea {
+.input-block input,
+.input-block select,
+.input-block textarea {
     width: 100%;
     padding: 12px;
     border: 2px solid var(--input-border);
@@ -164,21 +175,6 @@ body {
     margin-top: 20px;
     box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
 }
-.err-msg {
-    color: #ff4d6d;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-top: 4px;
-    display: block;
-    min-height: 1.2em; /* Prevents layout jumping when error appears */
-    text-align: left;
-}
-
-/* Red border for invalid inputs */
-input.invalid {
-    border-color: #ff4d6d !important;
-    background-color: #fff9fa;
-}
 
 .btn-back {
     text-decoration: none;
@@ -196,4 +192,20 @@ input.invalid {
     background: #ffe4e9;
     color: var(--accent-pink);
     border-color: #ffdae0;
+}
+
+/* Error States */
+.err-msg {
+    color: #ff4d6d;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+    min-height: 1.2em;
+    text-align: left;
+}
+
+input.invalid {
+    border-color: #ff4d6d !important;
+    background-color: #fff9fa;
 }

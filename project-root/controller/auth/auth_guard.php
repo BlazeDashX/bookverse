@@ -1,6 +1,6 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) { 
-    session_start(); 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
 function protect_page($required_role = 'user') {
@@ -10,9 +10,11 @@ function protect_page($required_role = 'user') {
         exit();
     }
 
-    // Role validation
+    // Verify role permissions
     $user_role = $_SESSION['role'] ?? '';
+    
     if ($user_role !== $required_role) {
+        // Redirect based on actual role
         if ($user_role === 'admin') {
             header("Location: ../../views/admin/admin_dashboard.php");
         } else {

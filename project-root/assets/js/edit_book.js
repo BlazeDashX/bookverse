@@ -3,15 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const coverInput = document.getElementById('coverInput');
     const bookPreview = document.getElementById('bookPreview');
 
-    // --- 1. REAL-TIME IMAGE PREVIEW ---
-    if (coverInput) {
+    // Image preview
+    if (coverInput && bookPreview) {
         coverInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     bookPreview.src = e.target.result;
-                    // Reset image error catch if a new valid image is picked
                     document.getElementById('errImage').innerText = "";
                 };
                 reader.readAsDataURL(file);
@@ -19,19 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 2. INLINE ERROR CATCHING ---
+    // Form validation
     if (editForm) {
         editForm.addEventListener('submit', function(e) {
             let isValid = true;
 
-            // Helper to clear all previous error catches
-            const clearErrors = () => {
-                document.querySelectorAll('.err-msg').forEach(el => el.innerText = "");
-                document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('invalid'));
-            };
-            clearErrors();
+            // Clear errors
+            document.querySelectorAll('.err-msg').forEach(el => el.innerText = "");
+            document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('invalid'));
 
-            // Catch Title Error
+            // Validate Title
             const title = document.getElementById('title');
             if (title.value.trim() === "") {
                 document.getElementById('errTitle').innerText = "Title cannot be empty.";
@@ -39,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
-            // Catch Author Error
+            // Validate Author
             const author = document.getElementById('author');
             if (author.value.trim() === "") {
                 document.getElementById('errAuthor').innerText = "Author name is required.";
@@ -47,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
-            // Catch Numeric Errors (Stock/Price)
+            // Validate Stock
             const stock = document.getElementById('stock_qty');
             if (stock.value < 0) {
                 document.getElementById('errStock').innerText = "Stock cannot be negative.";
@@ -55,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
+            // Validate Price
             const sellPrice = document.getElementById('sell_price');
             if (sellPrice.value < 0) {
                 document.getElementById('errSell').innerText = "Price cannot be negative.";
@@ -62,20 +59,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
-            // Catch Image Size Error
+            // Validate Image Size (Max 5MB)
             if (coverInput.files.length > 0) {
-                const size = coverInput.files[0].size / 1024 / 1024; // MB
+                const size = coverInput.files[0].size / 1024 / 1024;
                 if (size > 5) {
                     document.getElementById('errImage').innerText = "Max size is 5MB.";
                     isValid = false;
                 }
             }
 
-            // If any error was caught, stop form submission
+            // Prevent submission on error
             if (!isValid) {
                 e.preventDefault();
             }
         });
     }
 });
-

@@ -1,59 +1,52 @@
--- Database: `bookverse`
-CREATE DATABASE IF NOT EXISTS `bookverse` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `bookverse`;
-
--- Users Table
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(120) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `role` enum('admin','user') NOT NULL DEFAULT 'user',
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_username` (`username`),
-  UNIQUE KEY `uq_email` (`email`)
+-- USERS TABLE
+CREATE TABLE users (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('admin','user') NOT NULL DEFAULT 'user',
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_username (username),
+  UNIQUE KEY uq_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Books Table
-CREATE TABLE `books` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) NOT NULL,
-  `author` varchar(150) NOT NULL,
-  `category` varchar(80) NOT NULL,
-  `sell_price` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `rent_price_per_month` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `stock_qty` int(11) NOT NULL DEFAULT 0,
-  `image_filename` varchar(255) DEFAULT NULL,
-  `status` enum('sell','rent','both') NOT NULL DEFAULT 'sell',
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
+
+-- BOOKS TABLE
+CREATE TABLE books (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  title VARCHAR(200) NOT NULL,
+  author VARCHAR(150) NOT NULL,
+  category VARCHAR(80) NOT NULL,
+  sell_price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  rent_price_per_month DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  stock_qty INT(11) NOT NULL DEFAULT 0,
+  description TEXT DEFAULT NULL,
+  image_filename VARCHAR(255) DEFAULT NULL,
+  status ENUM('sell','rent','both') NOT NULL DEFAULT 'sell',
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Book Statistics Table (Analytics)
-CREATE TABLE `book_stats` (
-  `book_id` int(11) NOT NULL,
-  `download_count` int(11) NOT NULL DEFAULT 0,
-  `popularity_count` int(11) NOT NULL DEFAULT 0,
-  `rental_count` int(11) NOT NULL DEFAULT 0,
-  `purchase_count` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`book_id`),
-  CONSTRAINT `fk_book_stats` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Payments Table
-CREATE TABLE `payments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `payment_type` enum('buy','rent') NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
-  `card_holder_name` varchar(120) NOT NULL,
-  `card_last4` char(4) NOT NULL,
-  `payment_status` enum('success','failed') NOT NULL DEFAULT 'success',
-  `paid_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_pay_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_pay_book` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
+-- PAYMENTS TABLE
+CREATE TABLE payments (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  book_id INT(11) NOT NULL,
+  payment_type ENUM('buy','rent') NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  card_holder_name VARCHAR(120) NOT NULL,
+  card_last4 CHAR(4) NOT NULL,
+  payment_status ENUM('success','failed') NOT NULL DEFAULT 'success',
+  payment_date DATETIME DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY fk_pay_user (user_id),
+  KEY fk_pay_book (book_id),
+  CONSTRAINT fk_pay_user 
+  FOREIGN KEY (user_id) REFERENCES users(id) 
+  ON UPDATE CASCADE,
+  CONSTRAINT fk_pay_book 
+  FOREIGN KEY (book_id) REFERENCES books(id) 
+  ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

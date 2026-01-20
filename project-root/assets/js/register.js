@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
+    // Elements
     const usernameEl = document.getElementById("username");
     const emailEl = document.getElementById("email");
     const passwordEl = document.getElementById("password");
@@ -10,32 +11,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const errPassword = document.getElementById("errPassword");
     const errConfirm = document.getElementById("errConfirm");
 
-    function clearErrors() {
-        errUsername.innerText = "";
-        errEmail.innerText = "";
-        errPassword.innerText = "";
-        errConfirm.innerText = "";
-        errUsername.style.display = "none";
-        errEmail.style.display = "none";
-        errPassword.style.display = "none";
-        errConfirm.style.display = "none";
-        usernameEl.classList.remove("input-error");
-        emailEl.classList.remove("input-error");
-        passwordEl.classList.remove("input-error");
-        confirmEl.classList.remove("input-error");
-        resultMsg.innerText = "";
-    }
+    // Validators
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidUsername = (u) => /^[a-zA-Z0-9_]{3,20}$/.test(u);
 
+    // Helpers
     function showError(el, errEl, msg) {
         errEl.innerText = msg;
         errEl.style.display = "block";
         el.classList.add("input-error");
     }
 
-    function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-    function isValidUsername(u) { return /^[a-zA-Z0-9_]{3,20}$/.test(u); }
+    function clearErrors() {
+        [errUsername, errEmail, errPassword, errConfirm].forEach(el => {
+            el.innerText = "";
+            el.style.display = "none";
+        });
+        [usernameEl, emailEl, passwordEl, confirmEl].forEach(el => {
+            el.classList.remove("input-error");
+        });
+        if (resultMsg) resultMsg.innerText = "";
+    }
 
-    document.getElementById("registerForm").addEventListener("submit", function (e) {
+    // Submission Handler
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
         e.preventDefault();
         clearErrors();
 
@@ -43,14 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = emailEl.value.trim();
         const password = passwordEl.value;
         const confirmPassword = confirmEl.value;
-
         let hasError = false;
 
+        // Validation Logic
         if (username === "") {
             showError(usernameEl, errUsername, "Username is required.");
             hasError = true;
         } else if (!isValidUsername(username)) {
-            showError(usernameEl, errUsername, "Username: 3-20 characters.");
+            showError(usernameEl, errUsername, "Username: 3-20 chars (letters/numbers).");
             hasError = true;
         }
 
@@ -80,39 +79,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (hasError) return;
 
-        let data = {
+        // Prepare Data
+        const data = {
             username: username,
             email: email,
             password: password,
             confirmPassword: confirmPassword
         };
 
-        let xhttp = new XMLHttpRequest();
-        // Updated path relative to /views/auth/register.php
+        // AJAX Request
+        const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "../../controller/auth/register_controller.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhttp.onreadystatechange = function () {
+        xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 try {
-                    let response = JSON.parse(this.responseText);
+                    const response = JSON.parse(this.responseText);
+                    
                     if (response.status === "field_error" && response.errors) {
                         if (response.errors.username) showError(usernameEl, errUsername, response.errors.username);
                         if (response.errors.email) showError(emailEl, errEmail, response.errors.email);
                         if (response.errors.password) showError(passwordEl, errPassword, response.errors.password);
                         if (response.errors.confirmPassword) showError(confirmEl, errConfirm, response.errors.confirmPassword);
                     } else if (response.status === "success") {
-                        alert("Account created! Redirecting...");
+                        alert("Account created successfully! Redirecting to login...");
                         window.location.href = "login.php";
                     } else {
-                        resultMsg.innerText = response.message || "Error occurred.";
-                        resultMsg.style.color = "red";
+                        if (resultMsg) {
+                            resultMsg.innerText = response.message || "An unknown error occurred.";
+                            resultMsg.style.color = "red";
+                        }
                     }
                 } catch (e) {
-                    console.error("Invalid JSON from server:", this.responseText);
+                    console.error("Server response parsing failed.");
                 }
             }
         };
+
         xhttp.send("data=" + encodeURIComponent(JSON.stringify(data)));
     });
 });

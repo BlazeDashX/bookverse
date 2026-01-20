@@ -1,29 +1,25 @@
 <?php
-require_once('db.php'); 
+require_once __DIR__ . '/db.php';
 
 /**
- * Fetch all users with the role 'user' (Readers)
+ * Fetch All Readers (Non-Admin Users)
  */
 function getAllReaders() {
     global $conn;
-    // Column 'username' used to match your DB schema
     $sql = "SELECT id, username, email, created_at 
             FROM users 
             WHERE role = 'user' 
             ORDER BY created_at DESC";
-    
-    $result = mysqli_query($conn, $sql);
-    return $result;
+    return mysqli_query($conn, $sql);
 }
 
 /**
- * Delete a user by ID
+ * Delete User (Safety: Only deletes 'user' role)
  */
-function deleteUser($id) {
+function deleteUser(int $id): bool {
     global $conn;
-    $id = (int)$id;
     
-    // Ensure we only delete 'user' roles, not 'admin'
+    // Safety check: Ensure we never accidentally delete an 'admin'
     $stmt = mysqli_prepare($conn, "DELETE FROM users WHERE id = ? AND role = 'user'");
     mysqli_stmt_bind_param($stmt, "i", $id);
     

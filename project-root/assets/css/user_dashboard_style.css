@@ -1,0 +1,215 @@
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* CSS Variables */
+:root {
+    --rose-main: #d81b60;
+    --rose-light: #fce4ec;
+    --rose-hover: #ad1457;
+    --sidebar-bg: #fff0f3;
+    --deep-berry: #592d3e;
+    --text-gray: #636e72;
+    --bg-page: #fffafa;
+    --white: #ffffff;
+    --border-radius: 15px;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-page);
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #ffdae0;
+    z-index: 100;
+}
+
+.sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    padding: 35px 25px;
+    color: var(--rose-main);
+    border-bottom: 2px dashed #ffdae0;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    padding: 18px 25px;
+    color: #8a5a6a;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #ffe4e9;
+    color: var(--rose-main);
+    border-left: 5px solid var(--rose-main);
+}
+
+.sidebar nav a i {
+    margin-right: 15px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+}
+
+.content-header h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--deep-berry);
+    margin-bottom: 30px;
+}
+
+/* Search Bar */
+.search-container {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--white);
+    padding: 15px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(216, 27, 96, 0.05);
+    border: 1px solid var(--rose-light);
+}
+
+.search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--deep-berry);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #b08d99;
+}
+
+/* Card & Table Styles */
+.card-section {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px rgba(216, 27, 96, 0.05);
+    border: 1px solid #fff0f3;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th {
+    text-align: left;
+    padding: 15px;
+    color: var(--deep-berry);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--rose-light);
+}
+
+.inventory-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--rose-light);
+    vertical-align: middle;
+}
+
+/* Image Handling */
+.img-container {
+    width: 50px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Book Details */
+.book-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-title {
+    font-weight: 600;
+    color: var(--deep-berry);
+    font-size: 0.95rem;
+}
+
+.book-author {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-pill.sell { background: #e3f2fd; color: #1976d2; }
+.status-pill.rent { background: #f3e5f5; color: #7b1fa2; }
+
+/* Buttons & States */
+.btn-add-main {
+    background: linear-gradient(135deg, #ff8fa3 0%, #d81b60 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #b08d99;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

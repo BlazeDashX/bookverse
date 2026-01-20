@@ -1,23 +1,23 @@
-
-// Function to open the delete confirmation modal
+// Confirm User Delete
 function confirmUserDelete(id, name) {
     const modal = document.getElementById('deleteModal');
     const nameSpan = document.getElementById('readerNameDisplay');
     const confirmBtn = document.getElementById('confirmDeleteBtn');
 
-    if(modal && nameSpan && confirmBtn) {
+    if (modal && nameSpan && confirmBtn) {
         nameSpan.innerText = name;
         confirmBtn.href = `../../controller/deleteReaderController.php?id=${id}`;
-        modal.classList.add('active'); // Shows the modal
+        modal.classList.add('active');
     }
 }
 
+// Close Modal
 function closeModal() {
     const modal = document.getElementById('deleteModal');
-    if(modal) modal.classList.remove('active');
+    if (modal) modal.classList.remove('active');
 }
 
-// Handle Successful Action Popup
+// Auto-load Notification
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const msg = urlParams.get('msg');
@@ -26,19 +26,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('deleteModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalIcon = document.getElementById('modalIcon');
-        
-        // Re-styling the modal to look like a Success Toast
-        if(modalTitle) modalTitle.innerText = "Success!";
-        if(modalIcon) {
+        const nameSpan = document.getElementById('readerNameDisplay');
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
+        const cancelBtn = modal.querySelector('.btn-cancel');
+
+        // Style as Success
+        if (modalTitle) modalTitle.innerText = "Success!";
+        if (modalIcon) {
             modalIcon.className = "fa fa-check-circle";
             modalIcon.style.color = "#4BB543";
         }
-        
-        document.getElementById('readerNameDisplay').innerText = msg.replace(/\+/g, ' ');
-        document.getElementById('confirmDeleteBtn').style.display = "none";
-        modal.querySelector('.btn-cancel').innerText = "Close";
-        
+
+        if (nameSpan) nameSpan.innerText = msg.replace(/\+/g, ' ');
+        if (confirmBtn) confirmBtn.style.display = "none";
+        if (cancelBtn) cancelBtn.innerText = "Close";
+
         modal.classList.add('active');
+        
+        // Clean URL
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });

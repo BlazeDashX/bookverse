@@ -1,15 +1,17 @@
-/* Import Elegant Fonts */
+/* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
+/* CSS Variables */
 :root {
-    --page-bg: #fffafa;        /* Snow White background */
-    --sidebar-bg: #fff0f3;     /* Soft Blush sidebar */
-    --accent-pink: #ff8fa3;    /* Professional Rose Gold accents */
-    --deep-berry: #592d3e;     /* High-contrast text color */
+    --page-bg: #fffafa;
+    --sidebar-bg: #fff0f3;
+    --accent-pink: #ff8fa3;
+    --deep-berry: #592d3e;
     --white: #ffffff;
     --card-shadow: 0 10px 30px rgba(255, 143, 163, 0.12);
 }
 
+/* Body Styles */
 body.admin-body {
     margin: 0;
     display: flex;
@@ -18,7 +20,7 @@ body.admin-body {
     color: var(--deep-berry);
 }
 
-/* Sidebar Styling - */
+/* Sidebar Container */
 .sidebar {
     width: 280px;
     background-color: var(--sidebar-bg);
@@ -27,6 +29,7 @@ body.admin-body {
     border-right: 1px solid #ffdae0;
 }
 
+/* Sidebar Logo */
 .sidebar-logo {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
@@ -35,6 +38,7 @@ body.admin-body {
     border-bottom: 2px dashed #ffdae0;
 }
 
+/* Navigation Links */
 .sidebar nav a {
     display: flex;
     align-items: center;
@@ -44,13 +48,14 @@ body.admin-body {
     transition: 0.3s;
 }
 
-.sidebar nav a:hover, .sidebar nav a.active {
+.sidebar nav a:hover,
+.sidebar nav a.active {
     background: #ffe4e9;
     color: var(--accent-pink);
     border-left: 5px solid var(--accent-pink);
 }
 
-/* Main Content Area */
+/* Main Content */
 .main-content {
     margin-left: 280px;
     padding: 50px;
@@ -64,7 +69,7 @@ body.admin-body {
     margin-bottom: 40px;
 }
 
-/* SOLID COLOR KPI CARDS - */
+/* KPI Grid */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -77,7 +82,7 @@ body.admin-body {
     padding: 30px 15px;
     text-align: center;
     color: #ffffff;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .kpi-label {
@@ -88,15 +93,18 @@ body.admin-body {
     letter-spacing: 0.5px;
 }
 
-.kpi-value { font-size: 2.2rem; font-weight: 700; }
+.kpi-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
 
-/* Solid Color Theme Classes */
-.solid-blue   { background-color: #3f51b5; } /* */
+/* Color Utilities */
+.solid-blue { background-color: #3f51b5; }
 .solid-purple { background-color: #9c27b0; }
 .solid-orange { background-color: #ff9800; }
-.solid-teal   { background-color: #009688; }
+.solid-teal { background-color: #009688; }
 
-/* AVAILABLE BOOK LIST TABLE SECTION - */
+/* Content Cards */
 .card-section {
     background: var(--white);
     padding: 35px;
@@ -112,6 +120,7 @@ body.admin-body {
     gap: 10px;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -132,7 +141,7 @@ td {
     font-size: 0.95rem;
 }
 
-/* Action Buttons */
+/* Buttons */
 .btn-add-main {
     background: var(--accent-pink);
     color: white;
@@ -148,7 +157,26 @@ td {
     text-decoration: none;
     font-weight: 600;
 }
-/* Status Badges */
+
+.action-link.edit {
+    color: #3f51b5;
+    margin-right: 15px;
+}
+
+.action-link.delete {
+    color: #e74a3b;
+}
+
+.action-link i {
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.action-link:hover i {
+    transform: scale(1.2);
+}
+
+/* Badges & Status */
 .badge {
     padding: 4px 10px;
     border-radius: 8px;
@@ -168,100 +196,27 @@ td {
 .status-pill.rent { background: #f3e5f5; color: #7b1fa2; }
 .status-pill.both { background: #e8f5e9; color: #2e7d32; }
 
-/* Action Icons */
-.action-link.edit { color: #3f51b5; margin-right: 15px; }
-.action-link.delete { color: #e74a3b; }
-
-.action-link i {
-    font-size: 1.1rem;
-    transition: 0.2s;
-}
-
-.action-link:hover i {
-    transform: scale(1.2);
-}
-
-/* Modal Overlay */
+/* Modals */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(89, 45, 62, 0.4); /* Deep berry with transparency */
+    background: rgba(89, 45, 62, 0.4);
     display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.modal-overlay.active { display: flex; }
-
-/* Modal Content Box */
-.modal-content {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 25px;
-    width: 400px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(255, 143, 163, 0.2);
-    animation: slideIn 0.3s ease-out;
-}
-
-.warning-icon { color: #ff8fa3; font-size: 3rem; margin-bottom: 20px; }
-.modal-subtext { color: #b08d99; font-size: 0.85rem; margin-top: 5px; }
-
-/* Action Buttons */
-.modal-actions { display: flex; gap: 15px; margin-top: 30px; }
-
-.btn-cancel {
-    flex: 1;
-    background: #fffafa;
-    border: 1px solid #ffdae0;
-    padding: 12px;
-    border-radius: 50px;
-    color: #8a5a6a;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.btn-confirm {
-    flex: 1;
-    background: linear-gradient(135deg, #ff8fa3 0%, #ff4d6d 100%);
-    color: white;
-    padding: 12px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Modal Overlay Styling */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(89, 45, 62, 0.4); /* Theme-consistent translucent background */
-    display: none; /* Hidden by default */
     align-items: center;
     justify-content: center;
     z-index: 10000;
     animation: fadeIn 0.3s ease;
 }
 
-.modal-overlay.active { display: flex; }
+.modal-overlay.active {
+    display: flex;
+}
 
-/* Modal Card Design */
-.modal-card {
+.modal-card,
+.modal-content {
     background: #ffffff;
     width: 90%;
     max-width: 400px;
@@ -273,7 +228,10 @@ td {
     transition: transform 0.3s ease;
 }
 
-.modal-overlay.active .modal-card { transform: scale(1); }
+.modal-overlay.active .modal-card,
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
 
 .warning-circle {
     width: 60px;
@@ -288,10 +246,25 @@ td {
     margin: 0 auto 20px;
 }
 
-.modal-subtext { color: #b08d99; font-size: 0.85rem; margin-top: 10px; }
+.warning-icon {
+    color: #ff8fa3;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
 
-/* Modal Action Buttons */
-.modal-footer { display: flex; gap: 15px; margin-top: 30px; }
+.modal-subtext {
+    color: #b08d99;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+/* Modal Actions */
+.modal-footer,
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
 
 .btn-cancel {
     flex: 1;
@@ -304,6 +277,7 @@ td {
     cursor: pointer;
 }
 
+.btn-confirm,
 .btn-danger-confirm {
     flex: 1;
     background: linear-gradient(135deg, #ff8fa3 0%, #ff4d6d 100%);
@@ -317,4 +291,8 @@ td {
     justify-content: center;
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
