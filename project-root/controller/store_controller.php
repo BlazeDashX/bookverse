@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     mysqli_stmt_close($checkStmt);
 
     // 4. Fetch Price & Check Stock
-    $stmt = mysqli_prepare($conn, "SELECT sell_price, rent_price, stock_qty FROM books WHERE id = ?");
+    $stmt = mysqli_prepare($conn, "SELECT sell_price, rent_price_per_month, stock_qty FROM books WHERE id = ?");
     mysqli_stmt_bind_param($stmt, "i", $bookId);
     mysqli_stmt_execute($stmt);
     $book = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
